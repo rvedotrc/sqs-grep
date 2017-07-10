@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = 'sqs-grep'
   s.version     = SqsGrep::VERSION
   s.licenses    = [ 'Apache-2.0' ]
-  s.date        = '2015-07-19'
+  s.date        = '2017-07-10'
   s.summary     = 'Find messages on an SQS queue by regular expression, and optionally delete them'
   s.description = '
     sqs-grep iterates through each message on the given SQS queue, testing its
