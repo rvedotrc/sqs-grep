@@ -18,8 +18,11 @@ module SqsGrep
     # Sets $stdout.sync
     def run
       queue_name = @config.queue_name
-      queue_url = @config.sqs_client.list_queues(queue_name_prefix: queue_name).queue_urls.find {|url| File.basename(url) == queue_name}
-      queue_url or raise "Can't find queue named #{queue_name.inspect}"
+      queue_url = resolve_queue queue_name
+
+      send_to_url = if @config.send_to
+                      resolve_queue @config.send_to
+                    end
 
       $stdout.sync = true
 
@@ -63,6 +66,18 @@ module SqsGrep
               puts ""
             end
 
+            if send_to_url
+              # FIXME? discards message attributes
+              send_res = @config.sqs_client.send_message(
+                queue_url: send_to_url,
+                message_body: m.body,
+              )
+              if !@config.json_format
+                p send_res
+                puts ""
+              end
+            end
+
             if @config.delete_matched
               delete_res = @config.sqs_client.delete_message(
                 queue_url: queue_url,
@@ -85,6 +100,13 @@ module SqsGrep
       end
 
       return 0
+    end
+
+    private
+
+    def resolve_queue(queue_name)
+      @config.sqs_client.list_queues(queue_name_prefix: queue_name).queue_urls.find {|url| File.basename(url) == queue_name} \
+        or raise "Can't find queue named #{queue_name.inspect}"
     end
 
   end

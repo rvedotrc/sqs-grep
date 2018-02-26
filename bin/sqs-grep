@@ -9,6 +9,9 @@ config = SqsGrep::Config.new
 opts_parser = OptionParser.new do |opts|
   opts.banner = "Usage: sqs-grep [OPTIONS] PATTERN QUEUE"
   opts.separator ""
+  opts.on("-s", "--send-to OTHER_QUEUE", "Send matched messages to another queue (same account and region)") do |q|
+    config.send_to = q
+  end
   opts.on("-d", "--delete", "Consume (delete) matched messages") do
     config.delete_matched = true
   end

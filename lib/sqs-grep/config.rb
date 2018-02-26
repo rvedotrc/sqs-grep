@@ -4,6 +4,7 @@ module SqsGrep
     # Stronger builder pattern would be nice
     attr_accessor :client_options, :sqs_client,
       :pattern, :queue_name,
+      :send_to,
       :visibility_timeout,
       :wait_time_seconds,
       :max_count,
@@ -13,6 +14,7 @@ module SqsGrep
 
     def initialize
       @client_options = {}
+      @send_to = nil
       @visibility_timeout = 30
       @wait_time_seconds = 10
       @max_count = nil

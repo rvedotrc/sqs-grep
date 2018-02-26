@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = 'sqs-grep'
   s.version     = SqsGrep::VERSION
   s.licenses    = [ 'Apache-2.0' ]
-  s.date        = '2017-07-10'
+  s.date        = SqsGrep::DATE
   s.summary     = 'Find messages on an SQS queue by regular expression, and optionally delete them'
   s.description = '
     sqs-grep iterates through each message on the given SQS queue, testing its
@@ -14,7 +14,8 @@ Gem::Specification.new do |s|
     standard output.
 
     Options are available to control match inversion, json output, deletion of
-    matching messages, match limits, and timeouts.
+    matching messages, match limits, sending the messages to another queue,
+    and timeouts.
 
     Respects $https_proxy.
   '
