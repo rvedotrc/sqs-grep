@@ -13,12 +13,20 @@ module SqsGrep
                                effective_options = SqsGrep::Client.core_v2_options.merge(config.client_options)
                                Aws::SQS::Client.new(effective_options)
                              end
+
+      if @config.invoke_lambda
+        @config.lambda_client ||= begin
+                                    effective_options = SqsGrep::Client.core_v2_options.merge(config.client_options)
+                                    Aws::Lambda::Client.new(effective_options)
+                                  end
+      end
     end
 
     # Sets $stdout.sync
     def run
       queue_name = @config.queue_name
       queue_url = resolve_queue queue_name
+      function_name = @config.invoke_lambda
 
       send_to_url = if @config.send_to
                       resolve_queue @config.send_to
@@ -71,6 +79,18 @@ module SqsGrep
               send_res = @config.sqs_client.send_message(
                 queue_url: send_to_url,
                 message_body: m.body,
+              )
+              if !@config.json_format
+                p send_res
+                puts ""
+              end
+            end
+
+            if function_name
+              send_res = @config.lambda_client.invoke(
+                function_name: function_name,
+                invocation_type: 'Event',
+                payload: m.body
               )
               if !@config.json_format
                 p send_res

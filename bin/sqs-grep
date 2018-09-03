@@ -12,6 +12,9 @@ opts_parser = OptionParser.new do |opts|
   opts.on("-s", "--send-to OTHER_QUEUE", "Send matched messages to another queue (same account and region)") do |q|
     config.send_to = q
   end
+  opts.on("-l", "--invoke-lambda FUNCTION_NAME", "Invoke a lambda with the contents of each message (same account and region)") do |l|
+    config.invoke_lambda = l
+  end
   opts.on("-d", "--delete", "Consume (delete) matched messages") do
     config.delete_matched = true
   end
