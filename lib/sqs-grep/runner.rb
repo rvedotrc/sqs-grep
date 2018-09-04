@@ -1,4 +1,5 @@
-require 'aws-sdk'
+require 'aws-sdk-sqs'
+require 'aws-sdk-lambda'
 require 'json'
 require 'set'
 

@@ -37,5 +37,6 @@ lib/sqs-grep/version.rb
 
   s.require_paths = ["lib"]
 
-  s.add_dependency 'aws-sdk', "~> 2.0"
+  s.add_dependency 'aws-sdk-sqs', "~> 1"
+  s.add_dependency 'aws-sdk-lambda', "~> 1"
 end
