@@ -1,4 +1,4 @@
 module SqsGrep
-  VERSION = '0.1.2'
-  DATE = '2018-02-25'
+  VERSION = '0.1.3'
+  DATE = '2018-09-03'
 end

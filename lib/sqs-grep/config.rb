@@ -5,6 +5,8 @@ module SqsGrep
     attr_accessor :client_options, :sqs_client,
       :pattern, :queue_name,
       :send_to,
+      :invoke_lambda,
+      :lambda_client,
       :visibility_timeout,
       :wait_time_seconds,
       :max_count,
@@ -15,6 +17,8 @@ module SqsGrep
     def initialize
       @client_options = {}
       @send_to = nil
+      @invoke_lambda = nil
+      @lambda_client = nil
       @visibility_timeout = 30
       @wait_time_seconds = 10
       @max_count = nil
