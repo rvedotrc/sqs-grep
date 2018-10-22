@@ -30,8 +30,11 @@ opts_parser = OptionParser.new do |opts|
   opts.on("-w", "--wait-time-seconds N", "Give up after this many seconds of no new messages (default: #{config.wait_time_seconds})") do |n|
     config.wait_time_seconds = n.to_i
   end
+  opts.on("-c", "--count", "Only a count of matching messages is written to standard output") do
+    config.count
+  end
   opts.on("-j", "--json", "Show output in json format") do
-    config.json_format = true
+    config.json
   end
   opts.separator ""
   opts.separator <<-EOF

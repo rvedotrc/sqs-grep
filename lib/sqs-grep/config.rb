@@ -12,7 +12,7 @@ module SqsGrep
       :max_count,
       :delete_matched,
       :invert_match,
-      :json_format
+      :output_format
 
     def initialize
       @client_options = {}
@@ -24,7 +24,15 @@ module SqsGrep
       @max_count = nil
       @delete_matched = false
       @invert_match = false
-      @json_format = false
+      @output_format = :plain
+    end
+
+    def json
+      @output_format = :json
+    end
+
+    def count
+      @output_format = :count
     end
 
     def validate
